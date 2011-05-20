@@ -1,3 +1,10 @@
+THE PRIMARY SOURCE FOR THIS REPOSITORY IS NOW https://bitbucket.org/sfink/mqext/
+
+It just seemed silly to restrict my userbase to people willing to pull a
+mercurial extension via git.
+
+----
+
 Modify Mercurial's MQ extension by altering several commands and adding a few more. Install it by pointing your ~/.hgrc at it, eg:
 
   [extensions]
@@ -17,15 +24,17 @@ changes made to your patch queue to the queue repository
 (a la hg commit --mq):
   qrefresh
   qnew
+  qimport
   qrename
   qdelete
-  qimport
-The expected usage is to add the -Q option to all relevant commands in your
-~/.hgrc so that all changes are autocommitted:
+  qfinish
 
-  [defaults]
-  qnew = -Q
-  qrefresh = -Q
-  qrename = -Q
-  qdelete = -Q
-  qimport = -Q
+The expected usage is to add the 'mqcommit=auto' option to the 'mqext' section
+of your ~/.hgrc so that all changes are autocommitted if you are using a
+versioned patch queue, and to do nothing if not:
+
+  [mqext]
+  mqcommit = auto
+
+You could also set it to 'yes' to force it to try to commit all changes, and
+error out if you don't have (or have forgotten to create) a patch repository.
